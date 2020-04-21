@@ -1,6 +1,7 @@
 <?php
 class Boardgame {
     
+    private $id;
     private $name;
     private $players_min;
     private $players_max;
@@ -8,10 +9,24 @@ class Boardgame {
     private $age_max;
     private $picture;
 
-    public function __construct($data){
-        // TODO : Hydrate the object.
+    public function __construct(array $data){
+        hydrate($data);
     }
-
+    public function hydrate(array $data) {
+        foreach ($data as $key => $value) {
+            $method = 'set'.ucfirst($key);
+            if (method_exists($this, $method)) {
+                $this->$method($value);
+            }
+        }
+    }
+    public function getId() {
+        return $this->id;
+    }
+    public function setId(int $id) {
+        $this->id = $id;
+        return $this;
+    }
     public function getName() {
         return $this->name;
     }

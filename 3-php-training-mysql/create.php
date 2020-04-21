@@ -1,5 +1,19 @@
 <?php
+include 'inc/DBConnection.php';
+$db_conn = DBConnection::getInstance();
+$msg = '';
+$sql = 'INSERT INTO boardgames (name, players_min, players_max, age_min, age_max, picture) VALUES (?,?,?,?,?,?)';
 
+if (!empty($_POST)) {
+	$name = isset($_POST['name']) ? $_POST['name'] : '';
+	$min_age = isset($_POST['min_age']) ? $_POST['min_age'] : '';
+	$max_age = isset($_POST['max_age']) ? $_POST['max_age'] : '';
+	$min_players = isset($_POST['min_players']) ? $_POST['min_players'] : '';
+	$max_players = isset($_POST['max_players']) ? $_POST['max_players'] : '';
+	$picture = isset($_POST['picture']) ? $_POST['picture'] : '';
+	$stmt = $db_conn->getConnection()->prepare($sql)->execute([$name, $min_players, $max_players, $min_age, $max_age, $picture]);
+	$msg = 'Le jeu de société a été ajouté avec succès.';
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -42,5 +56,6 @@
 		</div>
 		<button type="submit" name="button">Envoyer</button>
 	</form>
+	<?php if ($msg) { echo "<p>$msg</p>";}?>
 </body>
 </html>
