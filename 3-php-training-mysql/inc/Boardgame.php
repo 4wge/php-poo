@@ -13,7 +13,6 @@ class Boardgame {
         if ( !empty($data) ) {
             $this->hydrate($data);
         }
-        echo '__FUCK__';
     }
     public function hydrate(array $data) {
         foreach ($data as $key => $value) {

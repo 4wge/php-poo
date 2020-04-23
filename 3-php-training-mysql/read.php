@@ -39,6 +39,7 @@ $donnees = $stmt->fetchAll(PDO::FETCH_CLASS, Boardgame::class);
           <td><?=$donnee->getAgeMax()?></td>
           <td><img src="<?=$donnee->getPicture()?>"></td>
           <td><a href="update.php?id=<?=$donnee->getId()?>">Modifier</a></td>
+          <td><a href="delete.php?id=<?=$donnee->getId()?>">Supprimer</a></td>
         </tr>
         <?php endforeach; ?>
       </tbody>
