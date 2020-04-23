@@ -12,6 +12,7 @@ if (!empty($_POST)) {
 	$max_players = isset($_POST['max_players']) ? $_POST['max_players'] : '';
 	$picture = isset($_POST['picture']) ? $_POST['picture'] : '';
 	$stmt = $db_conn->getConnection()->prepare($sql)->execute([$name, $min_players, $max_players, $min_age, $max_age, $picture]);
+	$stmt->fetchAll(PDO::FETCH_CLASS, Boardgame::class);
 	$msg = 'Le jeu de société a été ajouté avec succès.';
 }
 ?>

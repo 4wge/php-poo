@@ -9,8 +9,11 @@ class Boardgame {
     private $age_max;
     private $picture;
 
-    public function __construct(array $data){
-        hydrate($data);
+    public function __construct($data = []){
+        if ( !empty($data) ) {
+            $this->hydrate($data);
+        }
+        echo '__FUCK__';
     }
     public function hydrate(array $data) {
         foreach ($data as $key => $value) {
@@ -22,10 +25,6 @@ class Boardgame {
     }
     public function getId() {
         return $this->id;
-    }
-    public function setId(int $id) {
-        $this->id = $id;
-        return $this;
     }
     public function getName() {
         return $this->name;

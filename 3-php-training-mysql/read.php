@@ -1,10 +1,11 @@
 <?php
 include 'inc/DBConnection.php';
+include 'inc/Boardgame.php';
 
 $db_conn = DBConnection::getInstance();
 
 $stmt = $db_conn->getConnection()->query('SELECT * FROM boardgames');
-$donnees = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$donnees = $stmt->fetchAll(PDO::FETCH_CLASS, Boardgame::class);
 ?>
 <!DOCTYPE html>
 <html>
@@ -30,13 +31,14 @@ $donnees = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <tbody>
         <?php foreach ($donnees as $donnee): ?>
         <tr>
-          <td><?=$donnee['id']?></td>
-          <td><?=$donnee['name']?></td>
-          <td><?=$donnee['player_min']?></td>
-          <td><?=$donnee['player_max']?></td>
-          <td><?=$donnee['age_min']?></td>
-          <td><?=$donnee['age_max']?></td>
-          <td><img src="<?=$donnee['picture']?>"></td>
+          <td><?=$donnee->getId()?></td>
+          <td><?=$donnee->getName()?></td>
+          <td><?=$donnee->getPlayersMin()?></td>
+          <td><?=$donnee->getPlayersMax()?></td>
+          <td><?=$donnee->getAgeMin()?></td>
+          <td><?=$donnee->getAgeMax()?></td>
+          <td><img src="<?=$donnee->getPicture()?>"></td>
+          <td><a href="update.php?id=<?=$donnee->getId()?>">Modifier</a></td>
         </tr>
         <?php endforeach; ?>
       </tbody>
